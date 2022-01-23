@@ -1,38 +1,238 @@
-.App {
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to top right, #0f2442, #1756ad);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: rgba(0, 0, 0, 0.856);
+  overflow: hidden;
+}
+
+.main {
+  display: flex;
+  gap: 1em;
+}
+
+h1 {
+  margin: 0;
+}
+
+h2 {
+  margin: 0 0 2em;
+}
+
+.playground,
+.sidebar {
+  background: rgb(221, 221, 221);
+  min-height: 500px;
+  border-radius: 10px;
+  padding: 3em 1em;
+  box-shadow: 0 0 1.5em #0f2442;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.playground {
+  width: 750px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar {
+  min-width: 250px;
+  height: 500px;
+  border-radius: 10px;
+  padding: 3em 1em;
+  box-shadow: 0 0 1.5em #0f2442;
+  text-align: center;
+  justify-content: flex-start;
+  overflow: auto;
+  /* align-items: center; */
+  transition: 500ms;
+  position: relative;
+}
+
+.sidebar-controle {
+  transform: rotateY(180deg);
+}
+
+.sidebar-controle > * {
+  transform: rotateY(-180deg);
+}
+
+.title {
+  font-size: 3rem;
+}
+
+.description {
+  width: 60%;
+}
+
+.scoreboard {
+  list-style: none;
+  margin: 1em 0;
+  padding: 0;
+  width: 100%;
+  text-align: left;
+  opacity: 0.8;
+  font-size: 0.8em;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.scoreboard thead {
+  font-size: 1.5em;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.scoreboard button {
+  font-size: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.scorebard__row {
+  z-index: 1;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.scorebard__row + .scorebard__row {
+  border-top: 1px solid #1756ad;
+}
+
+.scoreboard tr:nth-child(even) {
+  background: rgb(211, 211, 211);
+}
+
+.btn-row {
+  background: transparent;
+}
+
+.scoreboard td {
+  padding: 0.5em 0;
+  width: calc(100% / 3);
+}
+
+.scoreboard td:nth-child(2) {
+  padding-left: 0.5em;
+}
+
+.scoreboard-date {
+  font-size: 0.9em;
+}
+
+.dice-grid {
+  display: grid;
+  width: min-content;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2.5em;
+  justify-items: center;
+}
+
+.die {
+  background: white;
+  height: 60px;
+  width: 60px;
+  border-radius: 5px;
+  display: grid;
+  gap: 5px;
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  padding: 5px;
+  cursor: pointer;
+  transition: 200ms;
+  box-shadow: 0px 2px 2px 0px #00000026;
+}
+
+.die:hover,
+.die:focus {
+  box-shadow: 0px 8px 8px 0px #00000026;
+  transform: translateY(-4px) scale(1.05);
+  background: #3bacee;
+}
+
+.btn {
+  font: inherit;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0.5em 1.2em;
+  border: none;
+  border-radius: 3px;
+  display: inline-block;
+  margin: 0.5em;
+  transition: 200ms;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.roll-dice-btn {
+  background: #1756ad;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.control-btn {
+  background: rgba(0, 0, 0, 0.856);
+  color: white;
 }
 
-@keyframes App-logo-spin {
+.active-filter {
+  position: relative;
+}
+
+.active-filter::after {
+  content: "👇";
+  font-size: 0.9em;
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  filter: drop-shadow(0 5px 2px grey);
+  animation: 500ms infinite ease-in alternate bounce;
+}
+
+@keyframes bounce {
   from {
-    transform: rotate(0deg);
+    transform: translate(-50%, 0);
   }
   to {
-    transform: rotate(360deg);
+    transform: translate(-50%, 5px);
   }
+}
+
+.die-1 .die-dot:not(.die-dot-5) {
+  background: transparent;
+}
+
+.die-2 .die-dot:not(.die-dot-1, .die-dot-9),
+.die-3 .die-dot:not(.die-dot-1, .die-dot-5, .die-dot-9),
+.die-4 .die-dot:not(.die-dot-1, .die-dot-3, .die-dot-7, .die-dot-9) {
+  background: transparent;
+}
+
+.die-5 .die-dot-2,
+.die-5 .die-dot-4,
+.die-5 .die-dot-6,
+.die-5 .die-dot-8 {
+  background: transparent;
+}
+
+.die-6 .die-dot-2,
+.die-6 .die-dot-5,
+.die-6 .die-dot-8 {
+  background: transparent;
+}
+
+.die-dot {
+  border-radius: 50%;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.856);
 }
