@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import "./App.css";
 import Die from "./Die";
-import { nanoid } from "nanoid";
+import {nanoid} from "nanoid";
 import Confetti from "react-confetti";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
@@ -18,9 +18,8 @@ function App() {
   const [sorting, setsorting] = useState({
     date: false,
     time: false,
-    rolls: false,
+    rolls: true,
   });
-  // const [today, setToday] = useState("");
 
   const [isActive, setIsActive] = useState(false);
   const [isPaused, setIsPaused] = useState(true);
@@ -122,7 +121,7 @@ function App() {
     if (!tenzies && isActive && !isPaused) {
       setDice((prevState) =>
         prevState.map((die) => {
-          return die.id === id ? { ...die, isHeld: !die.isHeld } : die;
+          return die.id === id ? {...die, isHeld: !die.isHeld} : die;
         })
       );
     }
@@ -165,7 +164,6 @@ function App() {
       const sortData = prevState.sort((a, b) => {
         console.log(a.date);
         console.log(typeof a.date);
-        // return a.date - b.date;
         return new Date(a.date) - new Date(b.date);
       });
       console.log(sortData);

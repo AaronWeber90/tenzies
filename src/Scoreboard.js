@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 
 export default function Scoreboard(props) {
+  const [defaultFilter, setDefaultFilter] = useState("active-filter");
   const scoreBoardEl = props.scoreData.map((item, id) => (
     <tr className="scorebard__row" key={id}>
       <td className="scoreboard-date">
@@ -15,11 +16,15 @@ export default function Scoreboard(props) {
     </tr>
   ));
 
+  useEffect(() => {
+    setDefaultFilter(null);
+  }, [props.sorting]);
+
   function SortButton(props) {
     return (
       <button
         onClick={props.click}
-        className={props.class ? "active-filter" : ""}
+        className={props.class ? "active-filter" : null}
       >
         {props.icon}
       </button>
@@ -44,7 +49,7 @@ export default function Scoreboard(props) {
                 <th>
                   <SortButton
                     click={props.sortRolls}
-                    class={props.sorting.rolls}
+                    class={defaultFilter ? defaultFilter : props.sorting.rolls}
                     icon={"🎲"}
                   />
                 </th>
