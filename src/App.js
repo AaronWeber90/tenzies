@@ -18,7 +18,7 @@ function App() {
   const [sorting, setsorting] = useState({
     date: false,
     time: false,
-    rolls: true,
+    rolls: false,
   });
 
   const [isActive, setIsActive] = useState(false);
