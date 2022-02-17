@@ -220,7 +220,10 @@ function App() {
           isActive={isActive}
           isPaused={isPaused}
           handlePause={() => timerPauseResume()}
-          handleStop={() => timerReset()}
+          handleStop={() => {
+            timerReset();
+            setDice(allNewDice());
+          }}
           sortTime={() => sortTime()}
           sortDay={() => sortDay()}
           sortRolls={() => sortRolls()}
