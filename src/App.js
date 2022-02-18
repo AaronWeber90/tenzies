@@ -10,6 +10,8 @@ function App() {
   const [dice, setDice] = useState(allNewDice());
   const [tenzies, setTenzies] = useState(false);
 
+  const [isHighscore, setIsHighscore] = useState(false);
+
   const [rolls, setRolls] = useState(-1);
   const [scoreData, setScoreData] = useState(
     JSON.parse(localStorage.getItem("scoreData")) || []
@@ -46,6 +48,20 @@ function App() {
       timerReset();
     }
   }, [dice]);
+
+  // CHECK FOR HIGHSCORE
+  useEffect(() => {
+    // const rollsHighscore = scoreData.every(
+    //   (item) => item.rolls > Math.max(...scoreData)
+    // );
+    // const rollsHighscore =
+    const sortData = scoreData.sort(
+      (a, b) => new Date(a.date) - new Date(b.date)
+    );
+    console.log(sortData);
+
+    // console.log(rollsHighscore);
+  }, [scoreData]);
 
   // SET LOCALE STORAGE IF SCORE CHANGES
   useEffect(() => {
@@ -162,11 +178,10 @@ function App() {
   function sortDay() {
     setScoreData((prevState) => {
       const sortData = prevState.sort((a, b) => {
-        console.log(a.date);
-        console.log(typeof a.date);
+        // console.log(a.date);
+        // console.log(typeof a.date);
         return new Date(a.date) - new Date(b.date);
       });
-      console.log(sortData);
       return sortData;
     });
     setsorting({
@@ -231,6 +246,7 @@ function App() {
           deleteScore={() => deleteScore()}
         />
         {tenzies && <Confetti />}
+        {console.log("NEW HIGHSCORE")}
       </main>
     </>
   );
