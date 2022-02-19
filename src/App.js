@@ -51,17 +51,27 @@ function App() {
 
   // CHECK FOR HIGHSCORE
   useEffect(() => {
-    // const rollsHighscore = scoreData.every(
-    //   (item) => item.rolls > Math.max(...scoreData)
-    // );
-    // const rollsHighscore =
-    const sortData = scoreData.sort(
-      (a, b) => new Date(a.date) - new Date(b.date)
-    );
-    console.log(sortData);
+    if (tenzies) {
+      const sortData = scoreData.sort(
+        (a, b) => new Date(b.date) - new Date(a.date)
+      );
+      // console.log(sortData);
+      console.log("New rolls are " + sortData[0].rolls);
+      // console.log(Math.max(...scoreData));
 
-    // console.log(rollsHighscore);
-  }, [scoreData]);
+      // const sortRolls = scoreData.sort((a, b) => a.rolls - b.rolls);
+      // console.log("lowest Rolls was " + sortRolls[0].rolls);
+
+      // const rollsHighscore = sortRolls[0].rolls < sortData[0].rolls;
+
+      const rollsArray = scoreData.map((item) => item.rolls);
+      console.log(rollsArray);
+
+      const rollsHighscore = sortData[0].rolls > Math.max(rollsArray);
+
+      console.log(rollsHighscore);
+    }
+  }, [tenzies]);
 
   // SET LOCALE STORAGE IF SCORE CHANGES
   useEffect(() => {
@@ -246,7 +256,7 @@ function App() {
           deleteScore={() => deleteScore()}
         />
         {tenzies && <Confetti />}
-        {console.log("NEW HIGHSCORE")}
+        {isHighscore && console.log("NEW HIGHSCORE")}
       </main>
     </>
   );
