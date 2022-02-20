@@ -11,6 +11,8 @@ function App() {
   const [tenzies, setTenzies] = useState(false);
 
   const [isHighscore, setIsHighscore] = useState(false);
+  const [isRollsHighscore, setIsRollsHighscore] = useState(false);
+  const [isTimeHighscore, setIsTimeHighscore] = useState(false);
 
   const [rolls, setRolls] = useState(-1);
   const [scoreData, setScoreData] = useState(
@@ -51,25 +53,36 @@ function App() {
 
   // CHECK FOR HIGHSCORE
   useEffect(() => {
-    if (tenzies) {
+    if (tenzies && scoreData.length > 1) {
       const sortData = scoreData.sort(
         (a, b) => new Date(b.date) - new Date(a.date)
       );
-      // console.log(sortData);
+
       console.log("New rolls are " + sortData[0].rolls);
-      // console.log(Math.max(...scoreData));
+      console.log("New time is " + sortData[0].time);
 
-      // const sortRolls = scoreData.sort((a, b) => a.rolls - b.rolls);
-      // console.log("lowest Rolls was " + sortRolls[0].rolls);
-
-      // const rollsHighscore = sortRolls[0].rolls < sortData[0].rolls;
-
-      const rollsArray = scoreData.map((item) => item.rolls);
+      const rollsArray = sortData.slice(1);
       console.log(rollsArray);
 
-      const rollsHighscore = sortData[0].rolls > Math.max(rollsArray);
+      const rollsHighscore = rollsArray.every(
+        (item) => item.rolls > sortData[0].rolls
+      );
 
-      console.log(rollsHighscore);
+      const checkTimeHighscore = rollsArray.every(
+        (item) => item.time > sortData[0].time
+      );
+
+      if (rollsHighscore) {
+        setIsRollsHighscore(true);
+        console.log("NEW ROLLS HIGHSCORE");
+      }
+      if (checkTimeHighscore) {
+        setIsTimeHighscore(true);
+        console.log("NEW TIME HIGHSCORE");
+      }
+      if (rollsHighscore || checkTimeHighscore) {
+        setIsHighscore(true);
+      }
     }
   }, [tenzies]);
 
@@ -132,6 +145,9 @@ function App() {
       setTenzies(false);
       setRolls(0);
       timerStart();
+      setIsHighscore(false);
+      setIsRollsHighscore(false);
+      setIsTimeHighscore(false);
     } else {
       setDice((prevState) =>
         prevState.map((die) => {
@@ -255,8 +271,8 @@ function App() {
           sorting={sorting}
           deleteScore={() => deleteScore()}
         />
-        {tenzies && <Confetti />}
-        {isHighscore && console.log("NEW HIGHSCORE")}
+        {isHighscore && <Confetti />}
+        {/* {isHighscore && console.log("NEW HIGHSCORE")} */}
       </main>
     </>
   );
