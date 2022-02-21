@@ -204,8 +204,6 @@ function App() {
   function sortDay() {
     setScoreData((prevState) => {
       const sortData = prevState.sort((a, b) => {
-        // console.log(a.date);
-        // console.log(typeof a.date);
         return new Date(a.date) - new Date(b.date);
       });
       return sortData;
@@ -248,6 +246,9 @@ function App() {
             rolls={rolls}
             isActive={isActive}
             tenzies={tenzies}
+            isHighscore={isHighscore}
+            isRollsHighscore={isRollsHighscore}
+            isTimeHighscore={isTimeHighscore}
           />
           <section className="dice-grid">{diceElements}</section>
           <button className="btn roll-dice-btn" onClick={rollDice}>
