@@ -11,7 +11,7 @@ body {
   background: linear-gradient(to top right, #0f2442, #1756ad);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: rgba(0, 0, 0, 0.856);
-  overflow: hidden;
+  /* overflow: hidden; */
   padding: 1em;
 }
 
@@ -47,6 +47,7 @@ h2 {
   /* width: 750px; */
   justify-content: space-between;
   align-items: center;
+  gap: 1em;
 }
 
 .sidebar {
