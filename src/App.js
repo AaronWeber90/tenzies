@@ -80,7 +80,7 @@ function App() {
         setIsTimeHighscore(true);
         console.log("NEW TIME HIGHSCORE");
       }
-      if (rollsHighscore || checkTimeHighscore) {
+      if (rollsHighscore && checkTimeHighscore) {
         setIsHighscore(true);
       }
     }
