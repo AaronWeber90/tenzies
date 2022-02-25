@@ -44,7 +44,7 @@ h2 {
 }
 
 .playground {
-  /* width: 750px; */
+  max-width: 650px;
   justify-content: space-between;
   align-items: center;
   gap: 1em;
